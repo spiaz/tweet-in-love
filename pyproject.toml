@@ -5,9 +5,13 @@ description = "Tweet sentiment analysis"
 authors = ["Stefano Piazza <to.stefano.piazza@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "~3.9"
+python = "~3.9.5"
 spacy = "^3.2.1"
 fastapi = "^0.70.1"
+python-dotenv = "^0.19.2"
+uvicorn = "^0.16.0"
+pandas = "^1.3.5"
+spacytextblob = "^3.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
@@ -15,6 +19,11 @@ black = "^21.12b0"
 mypy = "^0.910"
 flake8 = "^4.0.1"
 ipykernel = "^6.6.0"
+yapf = "^0.31.0"
+pylint = "^2.12.2"
+jupyterlab = "^3.2.5"
+seaborn = "^0.11.2"
+scikit-learn = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
