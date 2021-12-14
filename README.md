@@ -2,20 +2,33 @@
 
 A simple end-to-end sentiment-prediction project on english tweets.
 
+## Table of Contents
+
+- [tweet-in-love - tweet sentiment prediction AAS](#tweet-in-love---tweet-sentiment-prediction-aas)
+  - [Table of Contents](#table-of-contents)
+  - [General info](#general-info)
+  - [Project structure](#project-structure)
+  - [Technologies](#technologies)
+  - [Installation](#installation)
+  - [Serving API Documentation](#serving-api-documentation)
+
 ## General info
+
 In this project we explore a dataset of English tweets.
 The dataset is composed by tweets a tweets (text) and their associated sentiment (categories).
 
 The repository contains:
+
 - some data exploration
 - data preprocessing
 - training of few models
 - deployment of the models with a REST API
 - a Docker file to serve the model and reproduce the results
 - a Makefile to facilitate your life if you want to install it locally and re-run the code on your env ;)
+
 ## Project structure
 
-```
+```text
 ├── app             <- Code to serve the models
 │   └── ...
 ├── data
@@ -43,8 +56,11 @@ The repository contains:
 │
 ├── README.md
 ```
+
 ## Technologies
+
 Project is based principally on the follownig technologies:
+
 - Python (v.3.9.5)
 - SpaCy (NLP)
 - Pydantic (typing and input validation)
@@ -53,38 +69,48 @@ Project is based principally on the follownig technologies:
 - Poetry (env and dependencies management)
 
 ## Installation
+
 To run this project with Docker run:
-```
+
+```sh
 ❯ make deploy
 ```
+
 The app will be serving on [localhost:8080](http://127.0.0.1:8080/)
 
 To install it locally on your physical machine:
+
 1. Prerequirement (Optional)\
    To avoid conflicts, I'd suggest to activate a virtual environment.
    You can follow this instructions:
    1. install [pyenv](https://github.com/pyenv/pyenv).
    2. Install [poetry](https://python-poetry.org/).
    3. install the virtual env:
-       ```
+
+       ```sh
        ❯ pyenv install 3.9.5 # Install Python 3.9.5
 
        ❯ pyenv local 3.9.5  # Activate Python 3.9.5 for the current project
 
        ❯ poetry env use 3.9.5 # let poetry know to use that version of python
        ```
+
 2. Installation
    - User (model serving only):
-        ```
+
+        ```sh
         ❯ make install
         ```
-    - Development (to execute notebooks and install the development libs)
-        ```
+
+   - Development (to execute notebooks and install the development libs)
+
+        ```sh
         ❯ make install_dev
         ```
 
 The Makefile contains also other facilities for the developer:
-```
+
+```sh
 ❯ make help
 
 black                format all code
@@ -103,20 +129,25 @@ up                   launch the app
 ```
 
 ## Serving API Documentation
+
 To launch the server:
+
+```sh
+❯ poetry run main.py
 ```
-poetry run main.py
-```
+
 or
+
+```sh
+❯ make up
 ```
-make up
-```
+
 Once the server is up, the entrypoints are
+
 - [http://0.0.0.0:8080/predict_one](http://0.0.0.0:8080/predict_one) <- predict one single tweet
 - [http://0.0.0.0:8080/predict_batch](http://0.0.0.0:8080/predict_batch) <- predict a batch of tweets
 
 Please refer to the complete API documentation at:
+
 - [http://0.0.0.0:8080/doc](http://0.0.0.0:8080/doc)
 - [http://0.0.0.0:8080/redoc](http://0.0.0.0:8080/docs)
-
-
