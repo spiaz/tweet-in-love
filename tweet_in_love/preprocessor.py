@@ -1,5 +1,5 @@
 """
-Utilities for data preprocessing
+Utilities to prepare the data for training
 """
 
 from pathlib import Path
@@ -7,6 +7,7 @@ from typing import List, Optional, Sequence, Set, Tuple
 
 import pandas as pd
 from pydantic import BaseModel, validator
+from sklearn.preprocessing import LabelBinarizer
 from spacy.language import Language
 from spacy.tokens import Doc, DocBin
 
@@ -38,7 +39,7 @@ def cols_in_df(df: pd.DataFrame, cols: List[str]) -> None:
 
 class PreProcessor(BaseModel):
     """
-    Prepare data in a format that can be ingeted by a model
+    Prepare data in a format that can be ingested by a model
     """
 
     nlp: Language
