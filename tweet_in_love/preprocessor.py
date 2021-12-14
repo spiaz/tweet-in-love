@@ -1,11 +1,10 @@
-from typing import List, Optional, Sequence, Tuple, Set
 from pathlib import Path
+from typing import List, Optional, Sequence, Set, Tuple
 
 import pandas as pd
+from pydantic import BaseModel, validator
 from spacy.language import Language
 from spacy.tokens import Doc, DocBin
-
-from pydantic import BaseModel, validator
 
 from .settings import GlobalSettings
 
@@ -39,8 +38,9 @@ class PreProcessor(BaseModel):
     class_label: str = "sentiment"
 
     @validator("classes", pre=True)
-    def make_unique(cls, v: Sequence) -> Set:
-        return set(v)
+    @classmethod
+    def make_unique(cls, seq: Sequence) -> Set:
+        return set(seq)
 
     def df_to_tuple(
         self,

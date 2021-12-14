@@ -1,0 +1,31 @@
+from starlette.testclient import TestClient
+from app.api import app
+
+client = TestClient(app)
+
+
+def test_docs_redirect():
+    response = client.get("/")
+    assert response.history[0].status_code == 302
+    assert response.status_code == 200
+
+
+def test_predict_one():
+    client = TestClient(app)
+
+    request_data = {"text": "hello world!"}
+
+    response = client.post("/predict_one", json=request_data)
+    assert response.status_code == 200
+
+
+def test_predict_batch():
+    client = TestClient(app)
+
+    request_data = [
+        {"text": "this chair is killing me"},
+        {"text": "A nice cup of coffee"},
+    ]
+
+    response = client.post("/predict_batch", json=request_data)
+    assert response.status_code == 200

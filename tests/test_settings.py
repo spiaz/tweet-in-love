@@ -1,7 +1,8 @@
 from pathlib import Path
-from dotenv import load_dotenv
 
 import pytest
+from dotenv import load_dotenv
+
 from tweet_in_love.settings import GlobalSettings
 
 ENV = {

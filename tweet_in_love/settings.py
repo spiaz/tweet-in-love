@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseSettings
+from pydantic import BaseSettings, Field
 
 
 class GlobalSettings(BaseSettings):
@@ -50,11 +50,16 @@ class ModelSettings(BaseSettings):
 
     @property
     def model_path(self) -> Path:
-        return self.model_folder / f"model_name_{self.tag}_{self.version:02d}"
+        return self.model_folder / f"model_{self.tag}_{self.version:02d}"
 
     @property
-    def model_cfg(self) -> Path:
-        return self.model_folder / f"config_{self.tag}_{self.version:02d}.cfg"
+    def model_best(self) -> Path:
+        return self.model_path / "model-best"
 
     class Config:
         env_file = ".env"
+
+
+class DeployedModelSettings(ModelSettings):
+    tag: str = Field(env="DEPLOYED_MODEL_TAG")
+    version: int = Field(env="DEPLOYED_MODEL_VERSION")
