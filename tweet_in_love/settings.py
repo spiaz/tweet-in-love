@@ -56,6 +56,17 @@ class ModelSettings(BaseSettings):
     def model_best(self) -> Path:
         return self.model_path / "model-best"
 
+    @property
+    def model_cfg(self) -> Path:
+        return self.model_path / f"{self.tag}_{self.version:02d}.cfg"
+
+    @property
+    def model_full_cfg(self) -> Path:
+        return self.model_path / "config.cfg"
+
+    def create_folder(self):
+        self.model_path.mkdir(parents=True, exist_ok=True)
+
     class Config:
         env_file = ".env"
 
