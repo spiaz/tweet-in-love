@@ -1,0 +1,18 @@
+{
+  "labels":[
+    "happiness",
+    "boredom",
+    "fun",
+    "enthusiasm",
+    "love",
+    "anger",
+    "neutral",
+    "surprise",
+    "relief",
+    "worry",
+    "hate",
+    "sadness"
+  ],
+  "threshold":0.5,
+  "positive_label":null
+}
