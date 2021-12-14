@@ -1,18 +1,20 @@
-FROM python:3.9.9
+FROM python:3.9.5
+
+ENV PYTHONUNBUFFERED 1
 
 EXPOSE 8080
 WORKDIR /code
 
+COPY Makefile .python-version ./
+
+RUN make install_poetry
+
 # copy package definitions
 COPY poetry.lock pyproject.toml ./
 
-# install packages
-RUN pip install --upgrade pip && \
-    pip install poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install --no-dev
+RUN poetry config virtualenvs.in-project true
+RUN make install
 
 COPY . ./
-ENV PYTHONPATH app
-ENV PYTHONPATH tweet_in_love
-ENTRYPOINT ["python", "app/main.py"]
+
+ENTRYPOINT ["make", "up"]
