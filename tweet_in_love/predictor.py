@@ -1,4 +1,6 @@
-"""Predictors are instances of trained models.
+"""
+Predictors are instances of trained models.
+
 This module implements the process of loading a model
 and generate a usable prediction.
 """
@@ -12,19 +14,60 @@ from spacy.language import Language
 
 
 class PredictorInterface(ABC):
+    """
+    A generic interface for the predictors
+    """
+
     @abstractmethod
     def predict(self, items: List[str]) -> List[str]:
-        pass
+        """
+        Return model predictions for a list of items
+
+        Parameters
+        ----------
+        items : List[str]
+            a list of string to predict
+
+        Returns
+        -------
+        List[str]
+            the list of predicted classes
+        """
 
     def predict_one(self, item: str) -> str:
+        """
+        Return predictions for a single item
+
+        Parameters
+        ----------
+        item : str
+            The string to predict
+
+        Returns
+        -------
+        str
+            the predicted class
+        """
         return self.predict([item])[0]
 
 
 class SpacyPredictor(BaseModel, PredictorInterface):
+    """
+    A Predictor for Spacy Language models
+    """
+
     model: Language
 
     @classmethod
     def load(cls, model_path: Path):
+        """
+        Factory method to generate a SpacyPredictor instance.
+
+        Parameters
+        ----------
+        model_path : Path
+            Path to the model to use for the predictions
+        """
         nlp = spacy.load(model_path)
         return cls(model=nlp)
 

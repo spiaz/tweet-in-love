@@ -62,11 +62,7 @@ deploy: generate_dot_env ## Run docker image
 	docker run -p 8080:8080 tweet_in_love
 
 up: ## launch the app
-	$(CMD) python main
+	$(CMD) python -m main
 
 down: ## Shut down docker container
 	docker stop tweet_in_love
-
-
-
-

@@ -1,3 +1,6 @@
+"""
+A collection of configuration parsers
+"""
 from pathlib import Path
 from typing import Optional
 
@@ -5,6 +8,12 @@ from pydantic import BaseSettings, Field
 
 
 class GlobalSettings(BaseSettings):
+    """
+    Global Configuration loader class.
+
+    Read values from local environment variable (first) or `.env` file (next).
+    """
+
     project_name: str
     raw_csv_file: str
     tag: Optional[str] = None
@@ -44,6 +53,12 @@ class GlobalSettings(BaseSettings):
 
 
 class ModelSettings(BaseSettings):
+    """
+    Model settings configuration class.
+
+    Requires to explicitly define a model tag and version
+    """
+
     tag: str
     version: int
     model_folder: Path = Path("models")
@@ -65,6 +80,13 @@ class ModelSettings(BaseSettings):
         return self.model_path / "config.cfg"
 
     def create_folder(self):
+        """
+        Create the folder where the trained model and configurations are stored.
+
+        If the folder is already presents, does nothing.
+        The folder path is accessible from `ModelSettings.model_path`
+
+        """
         self.model_path.mkdir(parents=True, exist_ok=True)
 
     class Config:
@@ -72,5 +94,12 @@ class ModelSettings(BaseSettings):
 
 
 class DeployedModelSettings(ModelSettings):
+    """
+    Configuration parser for the model in production
+
+    Like ModelSettings, but the `tag` and `version` parameters
+    are read from the environment variable (or .env) instead.
+    """
+
     tag: str = Field(env="DEPLOYED_MODEL_TAG")
     version: int = Field(env="DEPLOYED_MODEL_VERSION")

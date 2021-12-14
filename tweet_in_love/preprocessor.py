@@ -1,3 +1,7 @@
+"""
+Utilities for data preprocessing
+"""
+
 from pathlib import Path
 from typing import List, Optional, Sequence, Set, Tuple
 
@@ -10,7 +14,8 @@ from .settings import GlobalSettings
 
 
 def cols_in_df(df: pd.DataFrame, cols: List[str]) -> None:
-    """Verify that some columns are available in a DataFrame
+    """
+    Verify that some columns are available in a DataFrame
 
     Parameters
     ----------
@@ -32,6 +37,10 @@ def cols_in_df(df: pd.DataFrame, cols: List[str]) -> None:
 
 
 class PreProcessor(BaseModel):
+    """
+    Prepare data in a format that can be ingeted by a model
+    """
+
     nlp: Language
     classes: Set[str]
     text_label: str = "content"
@@ -46,7 +55,8 @@ class PreProcessor(BaseModel):
         self,
         df: pd.DataFrame,
     ) -> List[Tuple[str, str]]:
-        """Transform a DataFrame to a sequence of texts and classes
+        """
+        Transform a DataFrame to a sequence of texts and classes
 
         Parameters
         ----------
@@ -66,8 +76,10 @@ class PreProcessor(BaseModel):
         return list(zip(df[self.text_label], df[self.class_label]))
 
     def tuple_to_doc(self, tuples: List[Tuple[str, str]]) -> List[Doc]:
-        """From a sequence of texts and labels, generates a list of SpaCy's docs
-        Internally, it runs the pipeline configured in self.nlp
+        """
+        From a sequence of texts and labels, generates a list of SpaCy's docs.
+
+        Internally, it runs the pipeline configured in self.nlp.
 
         Parameters
         ----------
@@ -108,6 +120,19 @@ class PreProcessor(BaseModel):
         return docs
 
     def df_to_doc(self, df: pd.DataFrame) -> List[Doc]:
+        """
+        Transform a DataFrame into a list of Docs
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            A dataframe of strings and labels
+
+        Returns
+        -------
+        List[Doc]
+            A list of Docs
+        """
         tuples = self.df_to_tuple(df)
         return self.tuple_to_doc(tuples)
 
@@ -118,6 +143,30 @@ class PreProcessor(BaseModel):
         tag: Optional[str],
         settings: Optional[GlobalSettings] = None,
     ) -> Tuple[Path, Path]:
+        """
+        Save a list of Docs to disk as DocBin format.
+
+        Docbin is the binary format required by Spacy v3 models.
+
+        Parameters
+        ----------
+        train_docs : List[Doc]
+            List of Docs to be saved as train dataset
+        test_docs : List[Doc]
+            List of Docs to be saved as test dataset
+        tag : Optional[str]
+            A short description (tag)
+        settings : Optional[GlobalSettings], optional
+            Configuration class used to establish where the data should be saved.
+            This function enforces a coherent naming convention for the data.
+
+            By default None, in which case the configuration is read from the environment.
+
+        Returns
+        -------
+        Tuple[Path, Path]
+            Path where the data have been saved
+        """
         if settings is None:
             settings = GlobalSettings()
         settings.tag = tag
