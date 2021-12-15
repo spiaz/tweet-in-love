@@ -78,7 +78,7 @@ To run this project with Docker:
 ❯ make docker_build
 ```
 
-1. run the volume
+1. run the container
 
 ```sh
 ❯ make docker_up
@@ -123,9 +123,8 @@ The Makefile contains also other facilities for the developer:
 
 black                format all code
 clean                delete all files in .gitignore
-docker_build         create docker volume
-docker_down          Shut down docker volume
-docker_up            run docker volume
+docker_build         create docker container
+docker_up            run docker container
 generate_dot_env     Cenerate an example .env file
 help                 this help message
 install              install requirements
