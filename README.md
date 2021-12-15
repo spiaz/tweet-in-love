@@ -70,10 +70,18 @@ Project is based principally on the follownig technologies:
 
 ## Installation
 
-To run this project with Docker run:
+To run this project with Docker:
+
+1. build the image
 
 ```sh
-❯ make deploy
+❯ make docker_build
+```
+
+1. run the volume
+
+```sh
+❯ make docker_up
 ```
 
 The app will be serving on [localhost:8080](http://127.0.0.1:8080/)
@@ -115,8 +123,9 @@ The Makefile contains also other facilities for the developer:
 
 black                format all code
 clean                delete all files in .gitignore
-deploy               Run docker image
-down                 Shut down docker container
+docker_build         create docker volume
+docker_up            run docker volume
+docker_down          Shut down docker volume
 generate_dot_env     Cenerate an example .env file
 help                 this help message
 install              install requirements
@@ -125,7 +134,7 @@ install_poetry       install virtual env
 isort                sort all imports
 lint                 run the static type checker and the linter
 test                 run test and show coverage
-up                   launch the app
+up                   launch the app locally
 ```
 
 ## Serving API Documentation
