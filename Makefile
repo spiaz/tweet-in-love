@@ -55,7 +55,7 @@ install_dev: ## install dev requirements
 
 # Deploy
 # -----------------------------------------------------------------------------
-.PHONY: docker_build docker_deploy docker_down up
+.PHONY: docker_build docker_up docker_down up
 
 docker_build: ## create docker volume
 	docker build -t tweet_in_love .

@@ -124,8 +124,8 @@ The Makefile contains also other facilities for the developer:
 black                format all code
 clean                delete all files in .gitignore
 docker_build         create docker volume
-docker_up            run docker volume
 docker_down          Shut down docker volume
+docker_up            run docker volume
 generate_dot_env     Cenerate an example .env file
 help                 this help message
 install              install requirements
