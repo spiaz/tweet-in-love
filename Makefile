@@ -55,14 +55,17 @@ install_dev: ## install dev requirements
 
 # Deploy
 # -----------------------------------------------------------------------------
-.PHONY: deploy down
+.PHONY: docker_build docker_up docker_down up
 
-deploy: generate_dot_env ## Run docker image
+docker_build: ## create docker volume
 	docker build -t tweet_in_love .
+
+docker_up: generate_dot_env ## run docker volume
 	docker run -p 8080:8080 tweet_in_love
 
-up: ## launch the app
+docker_down: ## stop docker volume
+	docker stop tweet_in_love
+
+up: ## launch the app locally
 	$(CMD) python -m main
 
-down: ## Shut down docker container
-	docker stop tweet_in_love
